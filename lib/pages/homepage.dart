@@ -4,7 +4,7 @@ import 'package:notes_app/widgets/body.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
+  static String id='first';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
