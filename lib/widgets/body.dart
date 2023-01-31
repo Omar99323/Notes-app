@@ -14,7 +14,11 @@ class Scaffoldbody extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          const CustomAppbar(title: 'Notes',icon: Icon(Icons.search),),
+          CustomAppbar(
+            title: 'Notes',
+            icon: const Icon(Icons.search),
+            onpress: () {},
+          ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 15),

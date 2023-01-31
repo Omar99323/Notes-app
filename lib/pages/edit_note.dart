@@ -11,16 +11,19 @@ class EditNotePage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
-          children: const [
-            SizedBox(
+          children: [
+            const SizedBox(
               height: 30,
             ),
             CustomAppbar(
               title: 'Edit Note',
-              icon: Icon(Icons.done),
+              icon: const Icon(Icons.done),
+              onpress: () {
+                Navigator.pop(context);
+              },
             ),
-            CustomTextField(hint: 'Title'),
-            CustomTextField(
+            const CustomTextField(hint: 'Title'),
+            const CustomTextField(
               hint: 'Content',
               linesnumber: 6,
             ),

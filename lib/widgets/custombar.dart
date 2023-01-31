@@ -6,8 +6,10 @@ class CustomAppbar extends StatelessWidget {
     Key? key,
     required this.title,
     required this.icon,
+    required this.onpress,
   }) : super(key: key);
   final String title;
+  final VoidCallback? onpress;
   final Icon icon;
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class CustomAppbar extends StatelessWidget {
           ),
         ),
         CustomIcon(
+          onpress: onpress,
           icon: icon,
         ),
       ],
