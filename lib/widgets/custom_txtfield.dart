@@ -5,16 +5,25 @@ class CustomTextField extends StatelessWidget {
     Key? key,
     required this.hint,
     this.linesnumber,
+    this.onsaved,
   }) : super(key: key);
   final String hint;
   final int? linesnumber;
+  final void Function(String?)? onsaved;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 15),
-      child: TextField(
-        onChanged: (value) {},
+      child: TextFormField(
+        validator: (value) {
+          if (value?.isEmpty ?? true) {
+            return 'Field is required';
+          } else {
+            return null;
+          }
+        },
+        onSaved: onsaved,
         textAlign: TextAlign.start,
         maxLines: linesnumber,
         decoration: InputDecoration(

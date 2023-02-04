@@ -22,10 +22,14 @@ class EditNotePage extends StatelessWidget {
                 Navigator.pop(context);
               },
             ),
-            const CustomTextField(hint: 'Title'),
-            const CustomTextField(
+            CustomTextField(
+              hint: 'Title',
+              onsaved: (value) {},
+            ),
+            CustomTextField(
               hint: 'Content',
               linesnumber: 6,
+              onsaved: (value) {},
             ),
           ],
         ),
