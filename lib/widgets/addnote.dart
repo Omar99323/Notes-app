@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:notes_app/cubits/addnote_cubit/addnote_cubit.dart';
 import 'package:notes_app/cubits/addnote_cubit/addnote_state.dart';
 import 'package:notes_app/models/note_model.dart';
@@ -14,23 +13,24 @@ class AddNote extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AddnoteCubit(),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-        child: BlocConsumer<AddnoteCubit, AddnoteState>(
-          listener: (context, state) {
-            if (state is AddnoteSuccess) {
-              Navigator.pop(context);
-            }
-            if (state is AddnoteFailure) {
-              print('error is ${state.errmsg}');
-            }
-          },
-          builder: (context, state) {
-            return ModalProgressHUD(
-                inAsyncCall: state is AddnoteLoading ? true : false,
-                child: const SingleChildScrollView(child: NoteForm()));
-          },
-        ),
+      child: BlocConsumer<AddnoteCubit, AddnoteState>(
+        listener: (context, state) {
+          if (state is AddnoteSuccess) {
+            Navigator.pop(context);
+          }
+          if (state is AddnoteFailure) {
+            print('error is ${state.errmsg}');
+          }
+        },
+        builder: (context, state) {
+          return AbsorbPointer(
+            absorbing: state is AddnoteLoading ? true : false,
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: SingleChildScrollView(child: NoteForm()),
+            ),
+          );
+        },
       ),
     );
   }
@@ -56,7 +56,7 @@ class _NoteFormState extends State<NoteForm> {
       key: formkey,
       autovalidateMode: autovalidateMode,
       child: SizedBox(
-        height: 350,
+        height: 300,
         child: Column(
           children: [
             CustomTextField(
@@ -72,26 +72,28 @@ class _NoteFormState extends State<NoteForm> {
                 content = value;
               },
             ),
-            const Spacer(
-              flex: 3,
-            ),
-            Buttton(
-              ontap: () {
-                if (formkey.currentState!.validate()) {
-                  formkey.currentState!.save();
-                  var notemodel = NoteModel(
-                    title: title!,
-                    content: content!,
-                    date: DateTime.now().toString(),
-                    color: Colors.blue.value,
-                  );
-                  BlocProvider.of<AddnoteCubit>(context).addnote(notemodel);
-                } else {
-                  autovalidateMode = AutovalidateMode.always;
-                  setState(() {});
-                }
+            BlocBuilder<AddnoteCubit, AddnoteState>(
+              builder: (context, state) {
+                return Buttton(
+                  ontap: () {
+                    if (formkey.currentState!.validate()) {
+                      formkey.currentState!.save();
+                      var notemodel = NoteModel(
+                        title: title!,
+                        content: content!,
+                        date: DateTime.now().toString(),
+                        color: Colors.blue.value,
+                      );
+                      BlocProvider.of<AddnoteCubit>(context).addnote(notemodel);
+                    } else {
+                      autovalidateMode = AutovalidateMode.always;
+                      setState(() {});
+                    }
+                  },
+                  title: 'Add',
+                  isloading: state is AddnoteLoading ? true : false,
+                );
               },
-              title: 'Add',
             ),
           ],
         ),
