@@ -25,9 +25,16 @@ class AddNote extends StatelessWidget {
         builder: (context, state) {
           return AbsorbPointer(
             absorbing: state is AddnoteLoading ? true : false,
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: SingleChildScrollView(child: NoteForm()),
+            child: Padding(
+              padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 15,
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child: const SingleChildScrollView(
+                child: NoteForm(),
+              ),
             ),
           );
         },
@@ -55,48 +62,48 @@ class _NoteFormState extends State<NoteForm> {
     return Form(
       key: formkey,
       autovalidateMode: autovalidateMode,
-      child: SizedBox(
-        height: 300,
-        child: Column(
-          children: [
-            CustomTextField(
-              hint: 'Title',
-              onsaved: (value) {
-                title = value;
-              },
-            ),
-            CustomTextField(
-              hint: 'Content',
-              linesnumber: 6,
-              onsaved: (value) {
-                content = value;
-              },
-            ),
-            BlocBuilder<AddnoteCubit, AddnoteState>(
-              builder: (context, state) {
-                return Buttton(
-                  ontap: () {
-                    if (formkey.currentState!.validate()) {
-                      formkey.currentState!.save();
-                      var notemodel = NoteModel(
-                        title: title!,
-                        content: content!,
-                        date: DateTime.now().toString(),
-                        color: Colors.blue.value,
-                      );
-                      BlocProvider.of<AddnoteCubit>(context).addnote(notemodel);
-                    } else {
-                      autovalidateMode = AutovalidateMode.always;
-                      setState(() {});
-                    }
-                  },
-                  title: 'Add',
-                  isloading: state is AddnoteLoading ? true : false,
-                );
-              },
-            ),
-          ],
-        ),
+      child: Column(
+        children: [
+          CustomTextField(
+            hint: 'Title',
+            onsaved: (value) {
+              title = value;
+            },
+          ),
+          CustomTextField(
+            hint: 'Content',
+            linesnumber: 6,
+            onsaved: (value) {
+              content = value;
+            },
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          BlocBuilder<AddnoteCubit, AddnoteState>(
+            builder: (context, state) {
+              return Buttton(
+                ontap: () {
+                  if (formkey.currentState!.validate()) {
+                    formkey.currentState!.save();
+                    var notemodel = NoteModel(
+                      title: title!,
+                      content: content!,
+                      date: DateTime.now().toString(),
+                      color: Colors.blue.value,
+                    );
+                    BlocProvider.of<AddnoteCubit>(context).addnote(notemodel);
+                  } else {
+                    autovalidateMode = AutovalidateMode.always;
+                    setState(() {});
+                  }
+                },
+                title: 'Add',
+                isloading: state is AddnoteLoading ? true : false,
+              );
+            },
+          ),
+        ],
       ),
     );
   }

@@ -4,7 +4,7 @@ import 'package:notes_app/widgets/body.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-  static String id='first';
+  static String id = 'first';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +14,10 @@ class HomePage extends StatelessWidget {
         ),
         onPressed: () {
           showModalBottomSheet(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),),
+            isScrollControlled: true,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
             context: context,
             builder: (context) {
               return const AddNote();
@@ -26,4 +29,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
