@@ -13,35 +13,31 @@ class AddNote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AddnoteCubit(),
-      child: BlocConsumer<AddnoteCubit, AddnoteState>(
-        listener: (context, state) {
-          if (state is AddnoteSuccess) {
-            BlocProvider.of<ShownotesCubit>(context).shownotes();
-            Navigator.pop(context);
-          }
-          if (state is AddnoteFailure) {
-            print('error is ${state.errmsg}');
-          }
-        },
-        builder: (context, state) {
-          return AbsorbPointer(
-            absorbing: state is AddnoteLoading ? true : false,
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: 20,
-                right: 20,
-                top: 15,
-                bottom: MediaQuery.of(context).viewInsets.bottom,
-              ),
-              child: const SingleChildScrollView(
-                child: NoteForm(),
-              ),
+    return BlocConsumer<AddnoteCubit, AddnoteState>(
+      listener: (context, state) {
+        if (state is AddnoteSuccess) {
+          BlocProvider.of<ShownotesCubit>(context).shownotes();
+          Navigator.pop(context);
+        }
+        if (state is AddnoteFailure) {
+        }
+      },
+      builder: (context, state) {
+        return AbsorbPointer(
+          absorbing: state is AddnoteLoading ? true : false,
+          child: Padding(
+            padding: EdgeInsets.only(
+              left: 20,
+              right: 20,
+              top: 15,
+              bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
-          );
-        },
-      ),
+            child: const SingleChildScrollView(
+              child: NoteForm(),
+            ),
+          ),
+        );
+      },
     );
   }
 }

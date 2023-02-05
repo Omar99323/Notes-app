@@ -5,11 +5,12 @@ class CustomTextField extends StatelessWidget {
     Key? key,
     required this.hint,
     this.linesnumber,
-    this.onsaved,
+    this.onsaved, this.onchanged,
   }) : super(key: key);
   final String hint;
   final int? linesnumber;
-  final void Function(String?)? onsaved;
+  final void Function(String?)? onsaved;    
+  final void Function(String?)? onchanged;    
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,7 @@ class CustomTextField extends StatelessWidget {
             return null;
           }
         },
+        onChanged: onchanged,
         onSaved: onsaved,
         textAlign: TextAlign.start,
         maxLines: linesnumber,

@@ -12,7 +12,8 @@ class Note extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, EditNotePage.id);
+        Navigator.pushNamed(context, EditNotePage.id, arguments: note);
+        note.delete();
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 10),
@@ -50,7 +51,6 @@ class Note extends StatelessWidget {
                     onPressed: () {
                       note.delete();
                       BlocProvider.of<ShownotesCubit>(context).shownotes();
-                      
                     },
                     color: Colors.black,
                   ),
