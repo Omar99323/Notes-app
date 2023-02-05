@@ -26,10 +26,10 @@ class _ScaffoldbodyState extends State<Scaffoldbody> {
       padding: const EdgeInsets.only(left: 20,right: 20, top: 35,bottom:65 ,),
       child: Column(
         children: [
-          CustomAppbar(
+          const CustomAppbar(
             title: 'Notes',
-            icon: const Icon(Icons.search),
-            onpress: () {},
+            icon:  Icon(Icons.logout),
+            
           ),
           Expanded(
             child: BlocBuilder<ShownotesCubit, ShownotesState>(

@@ -6,7 +6,7 @@ class CustomAppbar extends StatelessWidget {
     Key? key,
     required this.title,
     required this.icon,
-    required this.onpress,
+    this.onpress,
   }) : super(key: key);
   final String title;
   final VoidCallback? onpress;
