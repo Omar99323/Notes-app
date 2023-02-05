@@ -9,6 +9,6 @@ class ShownotesCubit extends Cubit<ShownotesState> {
   shownotes() {
     var notesbox = Hive.box<NoteModel>('Notes');
     notes = notesbox.values.toList();
-    
+    emit(ShownotesSuccess());
   }
 }

@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/cubits/addnote_cubit/addnote_cubit.dart';
 import 'package:notes_app/cubits/addnote_cubit/addnote_state.dart';
+import 'package:notes_app/cubits/shownotes_cubit/shownotes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/widgets/button.dart';
 import 'package:notes_app/widgets/custom_txtfield.dart';
@@ -17,6 +18,7 @@ class AddNote extends StatelessWidget {
       child: BlocConsumer<AddnoteCubit, AddnoteState>(
         listener: (context, state) {
           if (state is AddnoteSuccess) {
+            BlocProvider.of<ShownotesCubit>(context).shownotes();
             Navigator.pop(context);
           }
           if (state is AddnoteFailure) {
@@ -86,7 +88,7 @@ class _NoteFormState extends State<NoteForm> {
               return Buttton(
                 ontap: () {
                   final f = DateFormat('dd/MM/yyyy');
-                  
+
                   if (formkey.currentState!.validate()) {
                     formkey.currentState!.save();
                     var notemodel = NoteModel(

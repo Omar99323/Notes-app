@@ -9,28 +9,25 @@ class HomePage extends StatelessWidget {
   static String id = 'first';
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ShownotesCubit(),
-      child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(
-            Icons.add,
-          ),
-          onPressed: () {
-            showModalBottomSheet(
-              isScrollControlled: true,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              context: context,
-              builder: (context) {
-                return const AddNote();
-              },
-            );
-          },
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(
+          Icons.add,
         ),
-        body: const Scaffoldbody(),
+        onPressed: () {
+          showModalBottomSheet(
+            isScrollControlled: true,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            context: context,
+            builder: (context) {
+              return const AddNote();
+            },
+          );
+        },
       ),
+      body: const Scaffoldbody(),
     );
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app/cubits/shownotes_cubit/shownotes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/pages/edit_note.dart';
 
@@ -47,6 +49,8 @@ class Note extends StatelessWidget {
                     iconSize: 30,
                     onPressed: () {
                       note.delete();
+                      BlocProvider.of<ShownotesCubit>(context).shownotes();
+                      
                     },
                     color: Colors.black,
                   ),
