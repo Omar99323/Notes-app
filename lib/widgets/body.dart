@@ -19,15 +19,13 @@ class _ScaffoldbodyState extends State<Scaffoldbody> {
     BlocProvider.of<ShownotesCubit>(context).shownotes();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.only(left: 20,right: 20, top: 35,bottom:65 ,),
       child: Column(
         children: [
-          const SizedBox(
-            height: 30,
-          ),
           CustomAppbar(
             title: 'Notes',
             icon: const Icon(Icons.search),
@@ -36,7 +34,7 @@ class _ScaffoldbodyState extends State<Scaffoldbody> {
           Expanded(
             child: BlocBuilder<ShownotesCubit, ShownotesState>(
               builder: (context, state) {
-                List<NoteModel> nots = 
+                List<NoteModel> nots =
                     BlocProvider.of<ShownotesCubit>(context).notes!;
 
                 return Padding(
@@ -45,7 +43,9 @@ class _ScaffoldbodyState extends State<Scaffoldbody> {
                     padding: const EdgeInsets.only(top: 10),
                     itemCount: nots.length,
                     itemBuilder: (context, index) {
-                      return Note(note: nots[index],);
+                      return Note(
+                        note: nots[index],
+                      );
                     },
                   ),
                 );

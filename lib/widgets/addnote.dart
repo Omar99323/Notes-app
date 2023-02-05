@@ -7,6 +7,7 @@ import 'package:notes_app/cubits/shownotes_cubit/shownotes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/widgets/button.dart';
 import 'package:notes_app/widgets/custom_txtfield.dart';
+Color color = Colors.white;
 
 class AddNote extends StatelessWidget {
   const AddNote({super.key});
@@ -19,8 +20,7 @@ class AddNote extends StatelessWidget {
           BlocProvider.of<ShownotesCubit>(context).shownotes();
           Navigator.pop(context);
         }
-        if (state is AddnoteFailure) {
-        }
+        if (state is AddnoteFailure) {}
       },
       builder: (context, state) {
         return AbsorbPointer(
@@ -55,6 +55,7 @@ class _NoteFormState extends State<NoteForm> {
   final GlobalKey<FormState> formkey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? title, content;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +78,10 @@ class _NoteFormState extends State<NoteForm> {
             },
           ),
           const SizedBox(
+            height: 20,
+          ),
+          const Colorlist(),
+          const SizedBox(
             height: 30,
           ),
           BlocBuilder<AddnoteCubit, AddnoteState>(
@@ -91,7 +96,7 @@ class _NoteFormState extends State<NoteForm> {
                       title: title!,
                       content: content!,
                       date: f.format(DateTime.now()),
-                      color: Colors.blue.value,
+                      color:color.value,
                     );
                     BlocProvider.of<AddnoteCubit>(context).addnote(notemodel);
                   } else {
@@ -106,6 +111,50 @@ class _NoteFormState extends State<NoteForm> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class Colorlist extends StatefulWidget {
+  const Colorlist({super.key});
+
+  @override
+  State<Colorlist> createState() => _ColorlistState();
+}
+
+class _ColorlistState extends State<Colorlist> {
+  
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children:  [
+        GestureDetector(
+          onTap: () => color =Colors.red,
+          child:const CircleAvatar(
+            backgroundColor: Colors.red,
+          ),
+        ),
+        GestureDetector(
+          onTap: () => color =const Color.fromARGB(255, 3, 94, 168),
+          child: const CircleAvatar(
+            backgroundColor: Color.fromARGB(255, 3, 94, 168),
+          ),
+        ),
+        GestureDetector(
+          onTap: () => color =Colors.cyan,
+          child: const CircleAvatar(
+            backgroundColor: Colors.cyan,
+          ),
+        ),
+        GestureDetector(
+          onTap: () => color =Colors.orange,
+          child: const CircleAvatar(
+            backgroundColor: Colors.orange,
+          ),
+        ),
+      ],
     );
   }
 }
