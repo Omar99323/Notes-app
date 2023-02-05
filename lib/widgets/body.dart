@@ -38,14 +38,14 @@ class _ScaffoldbodyState extends State<Scaffoldbody> {
               builder: (context, state) {
                 List<NoteModel> nots = 
                     BlocProvider.of<ShownotesCubit>(context).notes!;
-                    
+
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 15),
                   child: ListView.builder(
                     padding: const EdgeInsets.only(top: 10),
                     itemCount: nots.length,
                     itemBuilder: (context, index) {
-                      return const Note();
+                      return Note(note: nots[index],);
                     },
                   ),
                 );
