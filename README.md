@@ -1,3 +1,3 @@
-# Notes_app
+# Notes app
 
 An offline Flutter project.
