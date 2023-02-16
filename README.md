@@ -1,3 +1,4 @@
 # Notes app
-
-An offline Flutter project.
+Offline Flutter project.
+## Local Database
+Hive
